@@ -1,17 +1,15 @@
 <%- include("./partials/head.ejs") %>
 <body>
-    <h1>Inicio</h1>
-    <p>Bienvenido</p>
     <%- include("./partials/nav.ejs") %>
-    <div class="content create">
-        <form >
-            <label for="titulo">Titulo</label>
-            <input type="text" id="titulo" name="titulo" required>
+    <div class="content create-blog">
+        <form method="POST" action="/">
+            <label for="title">Titulo</label>
+            <input type="text" id="title" name="title" required>
             <label for="resume">Resumen</label>
             <input type="text" id="resume" name="resume" required>
             <label for="body">Texto</label>
-            <textarea id="body" cols="30" rows="10" name="body" required></textarea>
-            <button>Guardar</button>
+            <textarea id="body" name="body" required></textarea>
+            <button type="submit">Guardar</button>
         </form>
     </div>
     <%- include("./partials/footer.ejs") %>
