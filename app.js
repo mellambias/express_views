@@ -1,15 +1,16 @@
 const express = require("express");
 const app = express();
 const morgan = require('morgan');
+const uuid = require('uuid');
 
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => console.log("Servidor activo"));
 
 const blogs = [
-  {"title": "Primer blog", "resume": "Resumen del primer blog", "body":""},
-  {"title": "Segundo blog", "resume": "Resumen del segundo blog", "body":""},
-  {"title": "Tercer blog", "resume": "Resumen del tercero blog", "body":""},
+  {"id":1,"title": "Primer blog", "resume": "Resumen del primer blog", "body":""},
+  {"id":2,"title": "Segundo blog", "resume": "Resumen del segundo blog", "body":""},
+  {"id":3,"title": "Tercer blog", "resume": "Resumen del tercero blog", "body":""},
 ];
 
 //Registrar el motor
@@ -54,8 +55,10 @@ app.get("/",(req, res) => {
 
 app.post("/",express.urlencoded({extended:false}),(req,res)=>{
   console.log("Formulario recibido...",req.body);
-  blogs.push(req.body);
-  res.render("index", { title: "inicio", blogs });
+  const newBlog = {"id":uuid.v4(),...req.body};
+  blogs.push(newBlog);
+  res.redirect("/");  // un redireccionamiento a la ruta
+  //res.render("index", { title: "inicio", blogs });
 });
 
 app.get("/about", (req, res) => {
@@ -66,6 +69,18 @@ app.get("/blog/create", (req, res) => {
   res.render("create", { title: "Crear entrada" });
 });
 
+app.get("/blog/:id", (req, res,next) => {
+  console.log(req.params.id);
+  blogs.forEach(blog => {
+    console.log(blog.id,req.params.id);
+    if(blog.id == req.params.id){
+      res.render("blog", { title: "Blog", blog });
+      next();
+    }
+  })
+    res.status(404)
+    .render("404", { title: "No encontrado" });
+});
 
 app.use((req,res)=>{
     res.status(404)
