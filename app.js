@@ -1,22 +1,19 @@
 const express = require("express");
+const { get } = require("express/lib/response");
 const app = express();
 const morgan = require("morgan");
-const uuid = require("uuid");
+
+
+
+
+// Routers
+const blogRouters = require("./routes/blogRoutes");
 
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => console.log("Servidor activo"));
 
-const blogs = [
-  { id: 1, title: "Primer blog", resume: "Resumen del primer blog", body: "" },
-  {
-    id: 2,
-    title: "Segundo blog",
-    resume: "Resumen del segundo blog",
-    body: "",
-  },
-  { id: 3, title: "Tercer blog", resume: "Resumen del tercero blog", body: "" },
-];
+
 
 //Registrar el motor
 app.set("view engine", "ejs");
@@ -34,12 +31,18 @@ function mifunction2(req, res, next) {
   console.log("Estoy en una función 2");
   next();
 }
+
+
+
 app.use(
   morgan(":method :url :status :res[content-length] - :response-time ms")
 );
 
 // usa el middleware para establecer un directorio de recursos estáticos
 app.use(express.static("public"));
+
+// Todas las rutas que comienzan con /blog usaran el blogRouters
+app.use("/blog",blogRouters);
 
 app.use((req, res, next) => {
   console.log("Hay una petición...");
@@ -59,41 +62,20 @@ app.use(
 );
 
 // Rutas
-
 app.get("/", (req, res) => {
-  res.render("index", { title: "inicio", blogs }); // render utiliza el motor de renderizado que hemos registrado.
-});
-/**
- * express.urlencoded({extended:false}) permite acceder al req.body
- * para los formularios enviados en JSON
- */
-app.post("/", express.urlencoded({ extended: false }), (req, res) => {
-  console.log("Formulario recibido...", req.body);
-  const newBlog = { id: uuid.v4(), ...req.body }; // https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Operators/Spread_syntax
-  blogs.push(newBlog);
-  res.redirect("/"); // un redireccionamiento a la ruta
-  //res.render("index", { title: "inicio", blogs });
+  res.redirect("/blog");
 });
 
 app.get("/about", (req, res) => {
   res.render("about", { title: "about" });
 });
 
-app.get("/blog/create", (req, res) => {
-  res.render("create", { title: "Crear entrada" });
-});
-
-app.get("/blog/:id", (req, res, next) => {
-  console.log(req.params.id);
-  blogs.forEach((blog) => {
-    if (blog.id == req.params.id) {
-      res.render("blog", { title: "Blog", blog });
-      next();
-    }
-  });
-  res.status(404).render("404", { title: "No encontrado" });
-});
-
 app.use((req, res) => {
-  res.status(404).render("404", { title: "No encontrado" });
+  res
+    .status(404)
+    .render("404", {
+      title: "No encontrado",
+      mensajeError: "OOPs, página no encontrada :)",
+    });
 }).on('error',(err) => console.log(`Lo siento pero no he podido montar el servidor `,err));
+

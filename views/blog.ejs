@@ -8,6 +8,8 @@
                 <h3 class="title"><b>Titulo:</b> <%= blog.title %></h3>
                 <p class="resumen"  ><b>Resumen:</b> <%= blog.resume %></p>
                 <p class="body"  ><b>Cuerpo:</b> <%= blog.body %></p>
+                <a class="btn delete" href="#" data-id="<%= blog.id %>">Eliminar</a>
+                <a class="btn edit" href="/blog/update/<%= blog.id %>">Editar</a>
             </div>
         <%} else {%>
             <h3>No hay blocks</h3>
@@ -16,5 +18,17 @@
         <p><a href="/"><<< Vover</a></p>
     </div>
     <%- include("./partials/footer.ejs") %>
+    <script>
+        //fetch
+        const btnDelete = document.querySelector(".delete");
+        btnDelete.addEventListener('click',(e)=>{
+            const ruta = `/blog/${btnDelete.dataset.id}`;
+            fetch(ruta,{method:"DELETE"})
+            .then( res => res.json())
+            .then(data => window.location.href=data.redirect)
+            .catch(err => console.error(err))
+        });
+
+    </script>
 </body>
 </html>
