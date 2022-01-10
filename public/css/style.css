@@ -48,6 +48,16 @@ nav a {
   font-weight: 300;
 }
 
+.list p b{
+  margin: 10px;
+}
+
+nav a:hover{
+  color:blue;
+  opacity: .2;
+  font-weight:bold;
+}
+
 footer {
   color: #777;
   text-align: center;
@@ -98,4 +108,40 @@ footer {
   border: none;
   font-size: 1.2rem;
   cursor: pointer;
+}
+.btn{
+  margin: 50px;
+  display: flex;
+  justify-content: space-around;
+  width: 200px;
+}
+
+.btn a{
+  width: 60px;
+  margin: 15px 10px;
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 11px;
+  text-align: center;
+}
+
+.delete{
+  color: red;
+}
+.delete:hover{
+  background-color: red ;
+  color: white;
+}
+.edit{
+  color:blue
+}
+.edit:hover{
+  background-color: blue ;
+  color: white;
+}
+
+.title{
+  font-size:x-large;
+  margin-bottom: 20px;
+  text-transform: uppercase;
 }

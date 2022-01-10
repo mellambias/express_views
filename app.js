@@ -3,7 +3,7 @@ const { get } = require("express/lib/response");
 const app = express();
 const morgan = require("morgan");
 
-
+const uri="mongodb+srv://mellambias:<password>@cluster0.zbjmh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 
 
 // Routers
