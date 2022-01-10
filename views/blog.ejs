@@ -10,13 +10,13 @@
                 <div class="btn">
                     <a class="delete" href="#" data-id="<%= blog.id %>">Eliminar</a>
                     <a class="edit" href="/blog/update/<%= blog.id %>">Editar</a>
+                    <a class="edit" onclick="window.history.back(1)">Volver</a>
                 </div>
             </div>
         <%} else {%>
             <h3>No hay blocks</h3>
         <% } %>
         <br>
-        <p><a href="/"><<< Vover</a></p>
     </div>
     <%- include("./partials/footer.ejs") %>
     <script>

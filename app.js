@@ -7,11 +7,16 @@ const uri="mongodb+srv://mellambias:<password>@cluster0.zbjmh.mongodb.net/myFirs
 
 
 // Routers
-const blogRouters = require("./routes/blogRoutes");
+//const blogRouters = require("./routes/blogRoutes");
+const blogRouters = require("./routes/blogRoutesObj");
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => console.log("Servidor activo"));
+app
+  .listen(PORT, () => console.log("Servidor activo"))
+  .on("error", (err) =>
+    console.log(`Lo siento pero no he podido montar el servidor `, err)
+  );
 
 
 
@@ -41,25 +46,27 @@ app.use(
 // usa el middleware para establecer un directorio de recursos estáticos
 app.use(express.static("public"));
 
-// Todas las rutas que comienzan con /blog usaran el blogRouters
-app.use("/blog",blogRouters);
 
-app.use((req, res, next) => {
+
+/* app.use((req, res, next) => {
   console.log("Hay una petición...");
   console.log("host: ", req.hostname);
   console.log("path: ", req.path);
   console.log("method :", req.method);
   next(); // pasa el control al siguiente middleware o handle de rutas
-});
+}); */
 
-app.use(
+// Todas las rutas que comienzan con /blog usaran el blogRouters
+app.use("/blog", blogRouters);
+
+/* app.use(
   (req, res, next) => {
     console.log("Estoy en el segundo middleware");
     next();
   },
   mifunction,
   mifunction2
-);
+); */
 
 // Rutas
 app.get("/", (req, res) => {
@@ -77,5 +84,5 @@ app.use((req, res) => {
       title: "No encontrado",
       mensajeError: "OOPs, página no encontrada :)",
     });
-}).on('error',(err) => console.log(`Lo siento pero no he podido montar el servidor `,err));
+});
 

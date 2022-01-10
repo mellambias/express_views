@@ -2,14 +2,17 @@
 <body>
     <%- include("./partials/nav.ejs") %>
     <div class="content create-blog">
-        <form method="POST" action="/blog">
+        <form name="create" method="POST" action="/blog/create">
             <label for="title">Titulo</label>
             <input type="text" id="title" name="title" required>
             <label for="resume">Resumen</label>
             <input type="text" id="resume" name="resume" required>
             <label for="body">Texto</label>
             <textarea id="body" name="body" required></textarea>
-            <button type="submit">Guardar</button>
+            <div class="btn">
+                <a  class="delete" onclick="window.history.back(1)">Cancelar</a>
+                <a class="edit" onClick="create.submit()">Guardar</a>
+            </div>
         </form>
     </div>
     <%- include("./partials/footer.ejs") %>
