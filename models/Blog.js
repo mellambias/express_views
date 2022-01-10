@@ -1,12 +1,28 @@
-const blogs = [
-  { id: 1, title: "Primer blog", resume: "Resumen del primer blog", body: "" },
-  {
-    id: 2,
-    title: "Segundo blog",
-    resume: "Resumen del segundo blog",
-    body: "",
-  },
-  { id: 3, title: "Tercer blog", resume: "Resumen del tercero blog", body: "" },
-];
+const { MongoTopologyClosedError, MongoServerClosedError } = require("mongodb");
+const mongoose = require("mongoose");
 
-module.exports = blogs;
+const Schema = mongoose.Schema;
+
+const blogSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+    },
+    resume: {
+      type: String,
+      required: true,
+    },
+    body: {
+      type: String,
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
+
+//Modelo de datos basado en el esquema anterios
+
+const Blog = mongoose.model("blog", blogSchema);
+
+module.exports = Blog;
