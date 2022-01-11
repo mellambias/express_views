@@ -3,8 +3,8 @@
     <%- include("./partials/nav.ejs") %>
     <div class="content blogs">
         <h2>Listado de blogs</h2>
-        <% if(blogs.length >0){ 
-            blogs.forEach(element => {%>
+        <% if(documents.length >0){ 
+            documents.forEach(element => {%>
             <div class="list">
                 <a href="/blog/<%=element.id %>">
                     <h3 class="title"> <%= element.title %></h3>

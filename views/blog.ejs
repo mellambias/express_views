@@ -2,14 +2,14 @@
 <body>
     <%- include("./partials/nav.ejs") %>
     <div class="content blogs">
-        <% if(blog.id){ %>
+        <% if(documento.id){ %>
             <div class="list">
-                <h3 class="title"><strong> <%= blog.title %></strong></h3>
-                <p class="resumen" ><strong>Resumen:</strong> <%= blog.resume %></p>
-                <p class="body"  ><strong>Cuerpo:</strong> <%= blog.body %></p>
+                <h3 class="title"><strong> <%= documento.title %></strong></h3>
+                <p class="resumen" ><strong>Resumen:</strong> <%= documento.resume %></p>
+                <p class="body"  ><strong>Cuerpo:</strong> <%= documento.body %></p>
                 <div class="btn">
-                    <a class="delete" href="#" data-id="<%= blog.id %>">Eliminar</a>
-                    <a class="edit" href="/blog/update/<%= blog.id %>">Editar</a>
+                    <a class="delete"  data-id="<%= documento.id %>">Eliminar</a>
+                    <a class="edit" href="/blog/update/<%= documento.id %>">Editar</a>
                     <a class="edit" onclick="window.history.back(1)">Volver</a>
                 </div>
             </div>
@@ -23,9 +23,9 @@
         //fetch
         const btnDelete = document.querySelector(".delete");
         btnDelete.addEventListener('click',(e)=>{
-            const ruta = `/blog/${btnDelete.dataset.id}`;
+            const ruta = `/blog/delete/${btnDelete.dataset.id}`;
             fetch(ruta,{method:"DELETE"})
-            .then( res => res.json())
+            .then(res => res.json())
             .then(data => window.location.href=data.redirect)
             .catch(err => console.error(err))
         });

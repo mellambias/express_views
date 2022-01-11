@@ -2,9 +2,10 @@ const express = require("express");
 const { get } = require("express/lib/response");
 const app = express();
 const morgan = require("morgan");
+const mongoose = require("mongoose");
+const conect = require("./dbMongo");
 
-const uri="mongodb+srv://mellambias:<password>@cluster0.zbjmh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
-
+const url = `mongodb+srv://${conect.user}:${conect.pas}@cluster0.zbjmh.mongodb.net/${conect.dbName}?retryWrites=true&w=majority`;
 
 // Routers
 //const blogRouters = require("./routes/blogRoutes");
@@ -12,13 +13,19 @@ const blogRouters = require("./routes/blogRoutesObj");
 
 const PORT = process.env.PORT || 5000;
 
-app
-  .listen(PORT, () => console.log("Servidor activo"))
-  .on("error", (err) =>
-    console.log(`Lo siento pero no he podido montar el servidor `, err)
-  );
-
-
+(async function main() {
+  try {
+    await mongoose.connect(url);
+    console.log("conectado a Atlas");
+    app
+      .listen(PORT, () => console.log("Servidor activo"))
+      .on("error", (err) =>
+        console.log(`Lo siento pero no he podido montar el servidor `, err)
+      );
+  } catch (error) {
+    console.log("No se pudo conectar, servidor detenido", error);
+  }
+})();
 
 // Registrar el motor de plantillas
 app.set("view engine", "ejs");
@@ -37,16 +44,12 @@ function mifunction2(req, res, next) {
   next();
 }
 
-
-
 app.use(
   morgan(":method :url :status :res[content-length] - :response-time ms")
 );
 
 // usa el middleware para establecer un directorio de recursos estáticos
 app.use(express.static("public"));
-
-
 
 /* app.use((req, res, next) => {
   console.log("Hay una petición...");
@@ -80,11 +83,8 @@ app.get("/about", (req, res) => {
 });
 
 app.use((req, res) => {
-  res
-    .status(404)
-    .render("404", {
-      title: "No encontrado",
-      mensajeError: "OOPs, página no encontrada :)",
-    });
+  res.status(404).render("404", {
+    title: "No encontrado",
+    mensajeError: "OOPs, página no encontrada :)",
+  });
 });
-

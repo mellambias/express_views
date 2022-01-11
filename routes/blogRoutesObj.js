@@ -2,19 +2,18 @@ const express = require("express");
 const router = express.Router();
 
 //Modelo
-const blogs = require("../models/Blog");
+const Blog = require("../models/Blog");
 //Controladores
-const uuid = require("uuid");
 const BlogController = require("../controllers/Controller");
 // CRUD Create Read Update Delete
-const vistas = {
-  readAll: "index",
-  readOne: "blog",
-  create: "create",
-  update: "edit",
-  delete: "",
-}
-const blogCtr = new BlogController(uuid, blogs,vistas);
+const Vistas = {
+  readAll: { name: "index", data: { title: "inicio" } },
+  readOne: { name: "blog", data: { title: "Post" } },
+  create: { name: "create", data: { title: "Crear entrada" } },
+  update: { name: "edit", data: { title: "Modificar Blog" } },
+  delete: { name: "", data: { title: "" } },
+};
+const blogCtr = new BlogController(Blog, Vistas);
 
 /**
  * Rutas para el blog
@@ -42,7 +41,7 @@ router.post("/:id", express.urlencoded({ extended: false }), (res, req) =>
 );
 
 // Borrar post
-router.delete("/:id", (res, req) => blogCtr.delete(res, req));
+router.delete("/delete/:id", (res, req) => blogCtr.delete(res, req));
 // detalles de un post
 router.get("/:id", (res, req) => blogCtr.detalle(res, req));
 

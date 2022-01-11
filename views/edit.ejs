@@ -2,18 +2,18 @@
 <body>
     <%- include("./partials/nav.ejs") %>
     <div class="content create-blog">
-        <form name="update" method="POST" action="/blog/<%= blog.id %>">
+        <form name="update" method="POST" action="/blog/<%= document.id %>">
             <label for="title">Titulo</label>
-            <input type="text" id="title" name="title" value="<%= blog.title %>" required>
+            <input type="text" id="title" name="title" value="<%= document.title %>" required>
             <label for="resume">Resumen</label>
-            <input type="text" id="resume" name="resume" value="<%= blog.resume %>" required>
+            <input type="text" id="resume" name="resume" value="<%= document.resume %>" required>
             <label for="body">Texto</label>
-            <textarea id="body" name="body" required><%= blog.body %></textarea>
+            <textarea id="body" name="body" required><%= document.body %></textarea>
             <div class="btn">
                 <a class="delete" onclick="window.history.back(1)">Cancelar</a>
                 <a class="edit" onClick="update.submit()">Guardar</a>
             </div>
-            <input type="hidden" id="id" name="id" value="<%= blog.id %>" >
+            <input type="hidden" id="id" name="id" value="<%= document.id %>" >
         </form>
     </div>
     <%- include("./partials/footer.ejs") %>
