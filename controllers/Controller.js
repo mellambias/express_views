@@ -15,7 +15,7 @@ class Controller {
 
   // render utiliza el motor de renderizado que hemos registrado.
   index(req, res) {
-    res.render(this.vistas.index, { title: "inicio", blogs: this.modelo });
+    res.render(this.vistas.readAll, { title: "inicio", blogs: this.modelo });
   }
 
   /**
@@ -38,14 +38,14 @@ class Controller {
     //const blog = blogs.find(blog => blog.id == req.params.id);
     const blog = this.find(res, req.params.id);
     if (blog) {
-      res.render(this.vistas.detalle, { title: "Blog", blog });
+      res.render(this.vistas.readOne, { title: "Blog", blog });
     }
   }
 
   update(req, res) {
     const blog = this.find(res, req.params.id);
     if (blog) {
-      res.render(this.vistas.edit, { title: "Modificar Blog", blog });
+      res.render(this.vistas.update, { title: "Modificar Blog", blog });
     }
   }
 

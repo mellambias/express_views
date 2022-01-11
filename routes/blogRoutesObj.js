@@ -6,11 +6,13 @@ const blogs = require("../models/Blog");
 //Controladores
 const uuid = require("uuid");
 const BlogController = require("../controllers/Controller");
+// CRUD Create Read Update Delete
 const vistas = {
-    index: "index",
-    detalle: "blog",
-    create: "create",
-    edit: "edit"
+  readAll: "index",
+  readOne: "blog",
+  create: "create",
+  update: "edit",
+  delete: "",
 }
 const blogCtr = new BlogController(uuid, blogs,vistas);
 

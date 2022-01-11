@@ -20,9 +20,9 @@ app
 
 
 
-//Registrar el motor
+// Registrar el motor de plantillas
 app.set("view engine", "ejs");
-// la carpeta por defecto es views que se puede cambiar modificando la variable views => app.set("views","misVistas")
+// la carpeta por defecto es views que se puede cambiar modificando la variable views.  app.set("views","misVistas")
 // las plantillas ahora tendran como extension ejs.
 
 //Middleware
@@ -59,7 +59,9 @@ app.use(express.static("public"));
 // Todas las rutas que comienzan con /blog usaran el blogRouters
 app.use("/blog", blogRouters);
 
-/* app.use(
+/*
+Uso de varios middlewares
+app.use(
   (req, res, next) => {
     console.log("Estoy en el segundo middleware");
     next();
