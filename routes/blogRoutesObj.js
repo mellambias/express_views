@@ -7,10 +7,10 @@ const Blog = require("../models/Blog");
 const BlogController = require("../controllers/Controller");
 // CRUD Create Read Update Delete
 const Vistas = {
-  readAll: { name: "index", data: { title: "inicio" } },
-  readOne: { name: "blog", data: { title: "Post" } },
-  create: { name: "create", data: { title: "Crear entrada" } },
-  update: { name: "edit", data: { title: "Modificar Blog" } },
+  readAll: { name: "index", data: { title: "inicio" }, model: "blogs" },
+  readOne: { name: "blog", data: { title: "Post" }, model: "blog" },
+  create: { name: "create", data: { title: "Crear entrada" }, model: "blog" },
+  update: { name: "edit", data: { title: "Modificar Blog" }, model: "post" },
   delete: { name: "", data: { title: "" } },
 };
 const blogCtr = new BlogController(Blog, Vistas);

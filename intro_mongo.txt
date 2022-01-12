@@ -1,0 +1,8 @@
+show dbs                // Muestra las bases de datos en el servidor
+use < database >        // Selecciona una base datos
+show collections        // muestra las colecciones en la base de datos actual
+
+// db apunta a la base de datos actual
+
+db.<coleccion>.drop()                               //  Elimina la colección de la base de datos
+db.<coleccion>.insertOne({name:"name", edad:33})  // añade un documento en la colección y la crea si no existe
