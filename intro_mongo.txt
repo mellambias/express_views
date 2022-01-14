@@ -1,3 +1,9 @@
+sudo systemctl start mongod     // inicia el servidor de base de datos
+sudo systemctl status mongod    // Estado del servidor
+sudo systemctl stop mongod      // Detiene el servidor de bd
+
+
+
 show dbs                // Muestra las bases de datos en el servidor
 use < database >        // Selecciona una base datos
 show collections        // muestra las colecciones en la base de datos actual
@@ -6,3 +12,105 @@ show collections        // muestra las colecciones en la base de datos actual
 
 db.<coleccion>.drop()                               //  Elimina la colección de la base de datos
 db.<coleccion>.insertOne({name:"name", edad:33})  // añade un documento en la colección y la crea si no existe
+
+const user1 ={
+    name: "user1",
+    edad: 33,
+    email: "user1@gmail.com"
+}
+const user2 ={
+    name: "user2",
+    edad: 33,
+    email: "user2@gmail.com"
+}
+const user3 ={
+    name: "user3",
+    edad: 33,
+    email: "user3@gmail.com"
+}
+const user4 ={
+    name: "user4",
+    edad: 35,
+    email: "user4@gmail.com"
+}
+const user5 ={
+    name: "user5",
+    edad: 43,
+    email: "user4@gmail.com"
+}
+const user6 ={
+    name: "user6",
+    edad: 47,
+    email: "user4@gmail.com"
+}
+const user7 ={
+    name: "user7",
+    edad: 32,
+    email: "user4@gmail.com"
+}
+const user8 ={
+    name: "user8",
+    edad: 32,
+    email: "user4@gmail.com",
+    status:"active"
+}
+const user9 ={
+    name: "user9",
+    edad: 32,
+    email: "user4@gmail.com",
+    status:"active"
+}
+const user10 ={
+    name: "user10",
+    edad: 32,
+    email: "user10@gmail.com",
+    status:"active"
+}
+const user11 ={
+    name: "user11",
+    edad: 32,
+    email: "user11@gmail.com",
+    status:"inactive"
+}
+
+db.<coleccion>.insertMany([user2, user3, user4])            // inserta varios documentos a una coleccion
+db.<coleccion>.insertMany([user4, user5, user6, user7])    // inserta varios documentos a una coleccion
+db.<coleccion>.find()                                      // devuelve un array con contenido de una coleccion
+db.<coleccion>.findOne()                                   // devuelve el primer objeto que cumple
+
+//MQL Lenguaje de consultas de mongo.
+
+db.users.find({name:'user5'})           // devuelve documentos cuyo name es user5
+db.users.find({edad:{$gt:20}})          // devuelve documentos cuya edad es menor que 20
+db.users.find({edad:{$gt:20}}).count()  // count() devuelve el numero de elementos
+
+https://docs.mongodb.com/v4.4/reference/operator/query/#std-label-query-selectors
+// operadores
+$lt <, $lte <=, $gt >, $gte >=, $ne !=, $in [v1, v2], $nin != [v1, v2]
+
+// condicionales
+
+
+// buscar mayores o iguales de 30 y activos
+
+db.users.find(
+    {
+        $and:[
+            {edad:{$gte:30}},
+            {status:"active"}
+        ]
+    }
+)
+// conexion a la base de datos
+
+mongosh "mongodb+srv://sandbox.kfkop.mongodb.net/myFirstDatabase" --username m001-student
+
+mongodump --uri "mongodb+srv://<your username>:<your password>@<your cluster>.mongodb.net/sample_supplies"
+
+mongoexport --uri="mongodb+srv://<your username>:<your password>@<your cluster>.mongodb.net/sample_supplies" --collection=sales --out=sales.json
+
+mongorestore --uri "mongodb+srv://<your username>:<your password>@<your cluster>.mongodb.net/sample_supplies"  --drop dump
+
+mongoimport --uri="mongodb+srv://<your username>:<your password>@<your cluster>.mongodb.net/sample_supplies" --drop sales.json
+
+sample_geospatial
